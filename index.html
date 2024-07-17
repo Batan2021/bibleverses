@@ -124,7 +124,6 @@
     </div>
     <script>
         // Json dos versículos
-        // Caso queira adicionar uma explicação ao versículo, basta colar em URL.
         const versos = [
             {
                 index: 1,
@@ -133,35 +132,23 @@
                 reference: "Romanos 10:9",
             },
             {
-                index: 1,
+                index: 2,
                 reflection: "URL",
                 text: "Há caminho que ao homem parece direito, mas o fim dele são os caminhos da morte.",
                 reference: "Provérbios 14:12",
             },
             {
-                index: 1,
+                index: 3,
                 reflection: "URL",
                 text: "O Senhor é o meu pastor, nada me faltará.",
                 reference: "Salmos 23:1"
             },
-    {
-        index: 2,
-        reflection: "URL",
-        text: "Posso todas as coisas naquele que me fortalece.",
-        reference: "Filipenses 4:13"
-    },
-    {
-        index: 3,
-        reflection: "URL",
-        text: "O Senhor te abençoe e te guarde; o Senhor faça resplandecer o seu rosto sobre ti e te conceda graça.",
-        reference: "Números 6:24-25"
-    },
-    {
-        index: 4,
-        reflection: "URL",
-        text: "O Senhor é a minha luz e a minha salvação; de quem terei medo?",
-        reference: "Salmos 27:1"
-    },
+            {
+                index: 4,
+                reflection: "URL",
+                text: "Posso todas as coisas naquele que me fortalece.",
+                reference: "Filipenses 4:13"
+            },
     {
         index: 5,
         reflection: "URL",
@@ -1289,104 +1276,47 @@
       },
 ];
 
-        function getRandomVerse() {
-            const randomIndex = Math.floor(Math.random() * verses.length);
-            return verses[randomIndex];
+        // Função para carregar um versículo aleatório
+        function loadRandomVerse() {
+            const randomIndex = Math.floor(Math.random() * versos.length);
+            const selectedVerse = versos[randomIndex];
+            document.getElementById('verse').innerText = selectedVerse.text;
+            document.getElementById('reference').innerText = selectedVerse.reference;
+            document.getElementById('reflection').dataset.reflection = selectedVerse.reflection;
         }
 
-        function getRandomGradient() {
-            const colors = [
-                '#ff7e5f', '#feb47b', '#6a11cb', '#2575fc', '#00d2ff', '#3a7bd5',
-                '#ee9ca7', '#ffdde1', '#4568dc', '#b06ab3', '#ec008c', '#fc6767',
-                '#ffcc29', '#4cb8c4', '#f4786e', '#6874e8', '#a2d729', '#e8764e',
-                '#c8c8c8', '#ff5733', '#ffa700', '#ffcc00', '#33ff33', '#00ffcc',
-                '#00ccff', '#0066ff', '#9933ff', '#ff33ff', '#ff66b2', '#ff5050',
-                '#ff9933', '#ffbf00', '#99cc00', '#66cc66', '#66cccc', '#3366ff',
-                '#993366', '#cc6699', '#ff99cc', '#ffccff', '#ff6666', '#ff9966',
-                '#ffcc99', '#ffff99', '#ccff99', '#99ff99', '#99ffff', '#66ccff'
-            ];
-            const color1 = colors[Math.floor(Math.random() * colors.length)];
-            const color2 = colors[Math.floor(Math.random() * colors.length)];
-            return `linear-gradient(to right, ${color1}, ${color2})`;
-        }
-
-        document.addEventListener('DOMContentLoaded', () => {
-            const verseElement = document.getElementById('verse');
-            const referenceElement = document.getElementById('reference');
-
-            const verse = getRandomVerse();
-            verseElement.textContent = verse.text;
-            referenceElement.textContent = verse.reference;
-
-            document.body.style.background = getRandomGradient();
-
-            const reflectionButton = document.getElementById('reflection');
-            if (verse.reflection && isValidUrl(verse.reflection)) {
-                reflectionButton.style.display = 'block';
-            } else {
-                reflectionButton.style.display = 'none';
-            }
-        });
-
+        // Copiar o versículo para a área de transferência
         document.getElementById('copy').addEventListener('click', () => {
-            const verseText = document.getElementById('verse').textContent;
-            const referenceText = document.getElementById('reference').textContent;
-            const textToCopy = `${verseText} - ${referenceText}`;
-            navigator.clipboard.writeText(textToCopy).then(() => {
-                alert("Versículo copiado!");
-            }, () => {
-                alert("Erro ao copiar o versículo.");
-            });
+            const verseText = document.getElementById('verse').innerText + " - " + document.getElementById('reference').innerText;
+            navigator.clipboard.writeText(verseText);
+            alert('Versículo copiado para a área de transferência!');
         });
 
+        // Compartilhar o versículo
         document.getElementById('share').addEventListener('click', () => {
-            const verseText = document.getElementById('verse').textContent;
-            const referenceText = document.getElementById('reference').textContent;
-            const textToShare = `${verseText} - ${referenceText}`;
+            const verseText = document.getElementById('verse').innerText + " - " + document.getElementById('reference').innerText;
             if (navigator.share) {
                 navigator.share({
                     title: 'Versículo Bíblico',
-                    text: textToShare,
-                }).then(() => {
-                    console.log('Versículo compartilhado com sucesso.');
-                }).catch((error) => {
-                    console.log('Erro ao compartilhar o versículo:', error);
+                    text: verseText
                 });
             } else {
-                alert("A funcionalidade de compartilhamento não é suportada neste navegador.");
+                alert('Compartilhamento não suportado neste navegador.');
             }
         });
 
+        // Ver reflexão
         document.getElementById('reflection').addEventListener('click', () => {
-            const reflectionUrl = verses.find(v => v.index === 2).reflection;
-            window.open(reflectionUrl, '_blank');
-        });
-
-        document.getElementById('churchLogo').addEventListener('click', () => {
-            const buttonsContainer = document.querySelector('.buttons');
-            const churchInfoElements = document.querySelectorAll('.church-info');
-            
-            if (buttonsContainer.style.display === 'none') {
-                buttonsContainer.style.display = 'flex';
-                churchInfoElements.forEach(element => {
-                    element.style.display = 'block';
-                });
+            const reflectionURL = document.getElementById('reflection').dataset.reflection;
+            if (reflectionURL !== "URL") {
+                window.open(reflectionURL, '_blank');
             } else {
-                buttonsContainer.style.display = 'none';
-                churchInfoElements.forEach(element => {
-                    element.style.display = 'none';
-                });
+                alert('Reflexão não disponível.');
             }
         });
 
-        function isValidUrl(url) {
-            try {
-                new URL(url);
-                return true;
-            } catch (error) {
-                return false;
-            }
-        }
+        // Carregar um versículo aleatório ao iniciar a página
+        document.addEventListener('DOMContentLoaded', loadRandomVerse);
     </script>
 </body>
-</html
+</html>
