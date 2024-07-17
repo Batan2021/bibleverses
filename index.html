@@ -96,6 +96,41 @@
         .whatsapp-button a:hover {
             background: #1EBE57;
         }
+        /* Estilo para o modal */
+        .modal {
+            display: none; 
+            position: fixed; 
+            z-index: 1; 
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            background-color: rgb(0,0,0);
+            background-color: rgba(0,0,0,0.4); 
+        }
+        .modal-content {
+            background-color: #fefefe;
+            margin: 15% auto; 
+            padding: 20px;
+            border: 1px solid #888;
+            width: 80%; 
+            text-align: left;
+            color: black;
+            border-radius: 8px;
+        }
+        .close {
+            color: #aaa;
+            float: right;
+            font-size: 28px;
+            font-weight: bold;
+        }
+        .close:hover,
+        .close:focus {
+            color: black;
+            text-decoration: none;
+            cursor: pointer;
+        }
     </style>
 </head>
 <body>
@@ -119,33 +154,42 @@
         </footer>
         <footer class="church-info" style="margin-top: 0px; font-size: 0.9rem; text-align: center; color: #ffffff; opacity: 0.7;">
             <!-- Adicione abaixo o endereço da sua igreja -->
-            VENHA NOS VISITAR 
+            WHATSAPP: <a href="https://wa.me/5513998039592" target="_blank" style="color: #ffffff; text-decoration: underline;">+55 13 99803-9592</a>
         </footer>
     </div>
+
+    <!-- Modal de reflexão -->
+    <div id="reflectionModal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <p id="reflectionText"></p>
+        </div>
+    </div>
+
     <script>
         // Json dos versículos
         const versos = [
             {
                 index: 1,
-                reflection: "URL",
+                reflection: "Se com tua boca confessares ao Senhor Jesus e em teu coração creres que Deus o ressuscitou dos mortos, serás salvo. Esse é o fundamento da nossa fé: a confissão e a crença.",
                 text: "A saber: Se, com a tua boca, confessares ao Senhor Jesus e, em teu coração, creres que Deus o ressuscitou dos mortos, serás salvo.",
                 reference: "Romanos 10:9",
             },
             {
                 index: 2,
-                reflection: "URL",
+                reflection: "Esse versículo nos lembra que nem todos os caminhos que parecem certos aos nossos olhos são realmente bons. Devemos buscar a direção de Deus em todas as nossas decisões.",
                 text: "Há caminho que ao homem parece direito, mas o fim dele são os caminhos da morte.",
                 reference: "Provérbios 14:12",
             },
             {
                 index: 3,
-                reflection: "URL",
+                reflection: "O Senhor é o nosso pastor e cuidador. Nele, não temos falta de nada, pois Ele provê tudo o que precisamos.",
                 text: "O Senhor é o meu pastor, nada me faltará.",
                 reference: "Salmos 23:1"
             },
             {
                 index: 4,
-                reflection: "URL",
+                reflection: "Esse versículo nos encoraja a lembrar que em Cristo podemos realizar todas as coisas, pois é Ele quem nos fortalece.",
                 text: "Posso todas as coisas naquele que me fortalece.",
                 reference: "Filipenses 4:13"
             },
@@ -1307,11 +1351,21 @@
 
         // Ver reflexão
         document.getElementById('reflection').addEventListener('click', () => {
-            const reflectionURL = document.getElementById('reflection').dataset.reflection;
-            if (reflectionURL !== "URL") {
-                window.open(reflectionURL, '_blank');
-            } else {
-                alert('Reflexão não disponível.');
+            const reflectionText = document.getElementById('reflection').dataset.reflection;
+            document.getElementById('reflectionText').innerText = reflectionText;
+            document.getElementById('reflectionModal').style.display = 'block';
+        });
+
+        // Fechar o modal
+        document.querySelector('.close').addEventListener('click', () => {
+            document.getElementById('reflectionModal').style.display = 'none';
+        });
+
+        // Fechar o modal ao clicar fora dele
+        window.addEventListener('click', (event) => {
+            const modal = document.getElementById('reflectionModal');
+            if (event.target == modal) {
+                modal.style.display = 'none';
             }
         });
 
