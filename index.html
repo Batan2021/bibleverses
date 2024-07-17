@@ -75,6 +75,27 @@
             margin-left: auto;
             margin-right: auto;
         }
+        .whatsapp-button {
+            margin-top: 10px;
+        }
+        .whatsapp-button a {
+            display: inline-block;
+            padding: 0.75rem 1.5rem;
+            font-size: 1rem;
+            font-weight: bold;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            background: #25D366;
+            color: #ffffff;
+            text-decoration: none;
+            width: 200px;
+            text-align: center;
+            transition: all 0.3s ease;
+        }
+        .whatsapp-button a:hover {
+            background: #1EBE57;
+        }
     </style>
 </head>
 <body>
@@ -86,44 +107,43 @@
             <button id="share">COMPARTILHAR</button>
             <button id="reflection">VER REFLEXÃO</button>
         </div>
-        
         <footer style="margin-top: 100px; font-size: 1.5rem; text-align: center; color: #000000;"></footer>
-            <img src="logo.png" alt="IPR Logo" class="logo" id="churchLogo"> 
-            <!-- Parte que deve ser personalizada -->
+        <img src="logo.png" alt="IPR Logo" class="logo" id="churchLogo">
+        <!-- Parte que deve ser personalizada -->
+        <div class="whatsapp-button">
+            <a href="https://wa.me/5513998039592" target="_blank">Contato via WhatsApp</a>
+        </div>
         <footer class="church-info" style="margin-top: 0px; font-size: 1.1rem; text-align: center; color: #ffffff;">
-        	<!-- Adicione abaixo o nome da sua igreja -->
+            <!-- Adicione abaixo o nome da sua igreja -->
             CÉLULA CEM POR UM
         </footer>
         <footer class="church-info" style="margin-top: 0px; font-size: 0.9rem; text-align: center; color: #ffffff; opacity: 0.7;">
             <!-- Adicione abaixo o endereço da sua igreja -->
-            WHATSAPP https://wa.me/5513998039592
-        </footer>      
+            WHATSAPP: <a href="https://wa.me/5513998039592" target="_blank" style="color: #ffffff; text-decoration: underline;">+55 13 99803-9592</a>
+        </footer>
     </div>
-
     <script>
-    	//Json dos versículos
-       //Caso queira adicionar uma explicação ao versículo, basta colar em URL.
-        const verses = [
+        // Json dos versículos
+        // Caso queira adicionar uma explicação ao versículo, basta colar em URL.
+        const versos = [
             {
                 index: 1,
                 reflection: "URL",
-                text:
-                    "A saber: Se, com a tua boca, confessares ao Senhor Jesus e, em teu coração, creres que Deus o ressuscitou dos mortos, serás salvo.",
+                text: "A saber: Se, com a tua boca, confessares ao Senhor Jesus e, em teu coração, creres que Deus o ressuscitou dos mortos, serás salvo.",
                 reference: "Romanos 10:9",
             },
             {
                 index: 1,
                 reflection: "URL",
-                text:
-                    "Há caminho que ao homem parece direito, mas o fim dele são os caminhos da morte.",
+                text: "Há caminho que ao homem parece direito, mas o fim dele são os caminhos da morte.",
                 reference: "Provérbios 14:12",
-            },            
-    {
-        index: 1,
-        reflection: "URL",
-        text: "O Senhor é o meu pastor, nada me faltará.",
-        reference: "Salmos 23:1"
-    },
+            },
+            {
+                index: 1,
+                reflection: "URL",
+                text: "O Senhor é o meu pastor, nada me faltará.",
+                reference: "Salmos 23:1"
+            },
     {
         index: 2,
         reflection: "URL",
@@ -1369,4 +1389,4 @@
         }
     </script>
 </body>
-</html>
+</html
